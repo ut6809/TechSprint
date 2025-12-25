@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SafeHer - Women Safety Platform. Quick emergency SOS alerts and safety features.">
+    <meta name="theme-color" content="#7C3AED">
+    <title>SafeHer - Emergency SOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
+    
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        </script>
+  </head>
+
+
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M16 8L16 16L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+          </svg>
+          SafeHer
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
+        <nav class="nav" id="navMenu">
+          <a href="index.html" class="nav-link active">SOS</a>
+          <a href="map.html" class="nav-link">Live Map</a>
+          <a href="report.html" class="nav-link">Report</a>
+          <a href="admin.html" class="nav-link">Dashboard</a>
+        </nav>
+      </div>
+    </header>
+
+
+    <main class="main-content">
+      <div class="container">
+        <section class="sos-section">
+          <div class="sos-header">
+            <h1>Emergency SOS</h1>
+            <p>Press the button below to send an emergency alert with your location</p>
+          </div>
+
+          <div class="sos-button-wrapper">
+            <button class="sos-button" id="sosButton" aria-label="Send SOS Alert">
+              <span class="sos-button-inner">
+                <span class="sos-icon">🆘</span>
+                <span class="sos-text">SOS</span>
+                <span class="sos-subtext">Tap for help</span>
+              </span>
+            </button>
+            <div class="sos-pulse"></div>
+            <div class="sos-pulse sos-pulse-2"></div>
+          </div>
+
+         
+          <div class="status-section" id="statusSection">
+            <div class="status-indicator inactive" id="statusIndicator">
+              <span class="status-dot"></span>
+              <span id="statusText">Ready</span>
+            </div>
+          </div>
+
+          <div class="alert hidden" id="alertBox">
+            <span id="alertIcon">✓</span>
+            <span id="alertMessage"></span>
+          </div>
+
+          <div class="location-info card" id="locationCard">
+            <div class="card-header">
+              <h3 class="card-title">📍 Your Location</h3>
+            </div>
+            <div class="location-details" id="locationDetails">
+              <p class="location-placeholder">Location will appear when SOS is triggered</p>
+            </div>
+          </div>
+        </section>
+
+
+        <div id="awarenessBot" class="awareness-section">
+          <div class="awareness-header">
+            <div class="awareness-icon">💡</div>
+            <h3>Safety Awareness Assistant</h3>
+          </div>
+          <div class="chat-container">
+            <div id="chatMessages"></div>
+            <div class="chat-input">
+              <input id="awarenessInput" type="text" placeholder="Night walk tips? Harassment? Local police?">
+              <button id="awarenessSend">Ask</button>
+            </div>
+          </div>
+        </div>
+        
+    
+    
+
+        <section class="emergency-section">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">📞 Emergency Contacts</h3>
+            </div>
+            <ul class="emergency-list">
+              <li class="emergency-item">
+                <div class="emergency-info">
+                  <span class="emergency-name">Women Helpline</span>
+                  <span class="emergency-number">1091</span>
+                </div>
+                <a href="tel:1091" class="emergency-call" aria-label="Call Women Helpline">📞</a>
+              </li>
+              <li class="emergency-item">
+                <div class="emergency-info">
+                  <span class="emergency-name">Police</span>
+                  <span class="emergency-number">100</span>
+                </div>
+                <a href="tel:100" class="emergency-call" aria-label="Call Police">📞</a>
+              </li>
+              <li class="emergency-item">
+                <div class="emergency-info">
+                  <span class="emergency-name">Ambulance</span>
+                  <span class="emergency-number">102</span>
+                </div>
+                <a href="tel:102" class="emergency-call" aria-label="Call Ambulance">📞</a>
+              </li>
+              <li class="emergency-item">
+                <div class="emergency-info">
+                  <span class="emergency-name">National Emergency</span>
+                  <span class="emergency-number">112</span>
+                </div>
+                <a href="tel:112" class="emergency-call" aria-label="Call National Emergency">📞</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="quick-actions">
+          <a href="map.html" class="action-card">
+            <span class="action-icon">🗺️</span>
+            <span class="action-text">Live Tracking</span>
+          </a>
+          <a href="report.html" class="action-card">
+            <span class="action-icon">⚠️</span>
+            <span class="action-text">Report Unsafe Area</span>
+          </a>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-text">Your Safety, Our Priority</p>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal">
+      <h3 class="modal-title">⚠️ Confirm SOS Alert</h3>
+      <p class="modal-message">This will capture your location and send an emergency alert. Continue?</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" id="cancelSos">Cancel</button>
+        <button class="btn btn-danger" id="confirmSos">Send SOS</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/index.js"></script>
+  <script type="module" src="map.js"></script>
+  <script type="module" src="js/awareness-bot.js"></script>
+
+</body>
+</html>

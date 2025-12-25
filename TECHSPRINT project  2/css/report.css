@@ -1,0 +1,178 @@
+/* SafeHer - Report Page Styles */
+
+.report-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .report-header h1 {
+    color: var(--warning-orange);
+    margin-bottom: 0.5rem;
+  }
+  
+  .report-header p {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .report-form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .severity-options {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .severity-option {
+    flex: 1;
+    cursor: pointer;
+  }
+  
+  .severity-option input {
+    display: none;
+  }
+  
+  .severity-badge {
+    display: block;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.875rem;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+  
+  .severity-low {
+    background: rgba(16, 185, 129, 0.1);
+    color: #047857;
+    border-color: rgba(16, 185, 129, 0.3);
+  }
+  
+  .severity-medium {
+    background: rgba(245, 158, 11, 0.1);
+    color: #B45309;
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+  
+  .severity-high {
+    background: rgba(239, 68, 68, 0.1);
+    color: #DC2626;
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  
+  .severity-option input:checked + .severity-low {
+    background: var(--success-green);
+    color: white;
+    border-color: var(--success-green);
+  }
+  
+  .severity-option input:checked + .severity-medium {
+    background: var(--warning-orange);
+    color: white;
+    border-color: var(--warning-orange);
+  }
+  
+  .severity-option input:checked + .severity-high {
+    background: var(--danger-red);
+    color: white;
+    border-color: var(--danger-red);
+  }
+  
+  .location-picker {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 2px solid var(--border-light);
+  }
+  
+  .report-map {
+    height: 250px;
+    width: 100%;
+  }
+  
+  .location-info-box {
+    padding: 0.75rem 1rem;
+    background: var(--bg-gray);
+    border-top: 1px solid var(--border-light);
+  }
+  
+  .location-status {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .location-coords-display {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .coord-display {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .coord-display .label {
+    color: var(--text-gray);
+  }
+  
+  .coord-display .value {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  
+  .spinner-small {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border-light);
+    border-top-color: var(--primary-purple);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  
+  .success-message {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: var(--bg-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    margin: 2rem auto;
+  }
+  
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--success-green) 0%, #059669 100%);
+    color: white;
+    font-size: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+  }
+  
+  .success-message h2 {
+    color: var(--success-green);
+    margin-bottom: 0.5rem;
+  }
+  
+  .success-message p {
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .report-map {
+      height: 300px;
+    }
+  }

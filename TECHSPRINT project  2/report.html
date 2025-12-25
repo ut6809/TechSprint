@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SafeHer - Report unsafe areas in your community.">
+    <meta name="theme-color" content="#7C3AED">
+    <title>SafeHer - Report Unsafe Area</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/report.css">
+    
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        </script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  </head>
+
+
+<body>
+  <div class="page-wrapper">
+    <header class="header">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M16 8L16 16L22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="16" cy="16" r="3" fill="currentColor"/>
+          </svg>
+          SafeHer
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">☰</button>
+        <nav class="nav" id="navMenu">
+          <a href="index.html" class="nav-link">SOS</a>
+          <a href="map.html" class="nav-link">Live Map</a>
+          <a href="report.html" class="nav-link active">Report</a>
+          <a href="admin.html" class="nav-link">Dashboard</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <section class="report-header">
+          <h1>⚠️ Report Unsafe Area</h1>
+          <p>Help make your community safer by reporting areas that feel unsafe. Your reports help others stay informed and help authorities take action.</p>
+        </section>
+
+        <div class="alert alert-info">
+          <span>🔒</span>
+          <span>Your report is anonymous. We only collect location data to map unsafe areas.</span>
+        </div>
+
+        <div class="alert hidden" id="alertBox">
+          <span id="alertIcon">✓</span>
+          <span id="alertMessage"></span>
+        </div>
+
+        <form class="report-form card" id="reportForm">
+          <div class="form-group">
+            <label class="form-label" for="incidentType">Type of Concern</label>
+            <select class="form-select" id="incidentType" required>
+              <option value="">Select a category...</option>
+              <option value="poor_lighting">Poor Lighting</option>
+              <option value="harassment">Harassment Hotspot</option>
+              <option value="isolated">Isolated/Deserted Area</option>
+              <option value="unsafe_transport">Unsafe Public Transport</option>
+              <option value="suspicious">Suspicious Activity</option>
+              <option value="infrastructure">Poor Infrastructure</option>
+              <option value="Abuse"> Abuse Reporting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="severity">Severity Level</label>
+            <div class="severity-options">
+              <label class="severity-option">
+                <input type="radio" name="severity" value="low" required>
+                <span class="severity-badge severity-low">Low</span>
+              </label>
+              <label class="severity-option">
+                <input type="radio" name="severity" value="medium" checked>
+                <span class="severity-badge severity-medium">Medium</span>
+              </label>
+              <label class="severity-option">
+                <input type="radio" name="severity" value="high">
+                <span class="severity-badge severity-high">High</span>
+              </label>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-label" for="description">Description (Optional)</label>
+            <textarea class="form-textarea" id="description" placeholder="Describe what makes this area feel unsafe..." rows="4"></textarea>
+            <span class="form-hint">Be specific about time of day, conditions, or incidents observed</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">📍 Location</label>
+            <div class="location-picker">
+              <div id="reportMap" class="report-map"></div>
+              <div class="location-info-box" id="locationInfo">
+                <p class="location-status" id="locationStatus">
+                  <span class="spinner-small"></span>
+                  Getting your location...
+                </p>
+              </div>
+            </div>
+            <span class="form-hint">Drag the marker to adjust the location if needed</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="timeOfDay">Time When Area Feels Unsafe</label>
+            <select class="form-select" id="timeOfDay">
+              <option value="anytime">Anytime</option>
+              <option value="night">Night (8 PM - 6 AM)</option>
+              <option value="evening">Evening (5 PM - 8 PM)</option>
+              <option value="morning">Early Morning (5 AM - 7 AM)</option>
+              <option value="day">Daytime</option>
+            </select>
+          </div>
+           
+
+          <!--CONTACT INFO OPTIONAL-->
+
+          <div class="form-group">
+            <label for="contactPhone">
+              contact number
+              <span class="hint">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              id="contactPhone"
+              name="contactPhone"
+              class="form-control"
+              placeholder="e.g. 9876543210"
+            />
+          </div>
+       
+          
+
+   
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submitBtn">
+            <span id="submitText">Submit Report</span>
+            <div class="spinner hidden" id="submitSpinner"></div>
+          </button>
+        </form>
+
+        <div class="success-message hidden" id="successMessage">
+          <div class="success-icon">✓</div>
+          <h2>Thank You!</h2>
+          <p>Your report has been submitted successfully. Together, we're making our community safer.</p>
+          <button class="btn btn-primary" id="newReportBtn">Submit Another Report</button>
+        </div>
+      </div>
+
+      
+  
+    
+    </main>
+
+    <footer class="footer">
+      <p class="footer-text">Your Safety, Our Priority</p>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/report.js"></script>
+  <script type="module" src="map.js"></script>
+</body>
+</html>
