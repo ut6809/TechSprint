@@ -1,5 +1,7 @@
 // SafeHer - SOS Emergency Page
 // Import Firebase v9 functions
+// SafeHer - SOS Emergency Page
+// Import Firebase v9 functions
 import { addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 function handleFirebaseError(error) {
@@ -11,4 +13,5 @@ function handleFirebaseError(error) {
     alert("Something went wrong. Please try again.");
   }
 }
+
 
