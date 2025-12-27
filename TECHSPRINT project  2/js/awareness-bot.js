@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: `SafeHer Bot (Bhilai): "${question}". 2 safety tips. Local context. 💡` }] }],
+            contents: [{ parts: [{ text: `SafeHer Bot (Bhilai). "${question}". 2 safety tips. Local context. 💡` }] }],
             generationConfig: { maxOutputTokens: 120, temperature: 0.3 }
           })
         }
@@ -61,3 +61,5 @@ document.addEventListener("DOMContentLoaded", () => {
     messages.scrollTop = messages.scrollHeight;
   }
 });
+
+
